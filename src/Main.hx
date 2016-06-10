@@ -2,12 +2,14 @@ import states.*;
 import luxe.GameConfig;
 import luxe.Input;
 import luxe.States;
+import luxe.collision.shapes.Shape;
+import luxe.collision.shapes.Polygon;
 
 class Main extends luxe.Game {
 
     var machine : States;
-    //todo: add a toggle switch for this collider draw
     public static var draw_colliders : Bool = false;
+    public static var wall_colliders : Array<Shape> = [];
 
     override function config(config:luxe.GameConfig) {
 
@@ -47,10 +49,17 @@ class Main extends luxe.Game {
         if(e.keycode == Key.escape) {
             Luxe.shutdown();
         }
+        if(e.keycode == Key.key_0) {
+            draw_colliders = !draw_colliders;
+        }
 
     } //onkeyup
 
     override function update(dt:Float) {
+
+        if(draw_colliders) {
+            for(shape in wall_colliders) draw_collider_polygon(cast shape);
+        }
 
     } //update
 
@@ -67,5 +76,19 @@ class Main extends luxe.Game {
         Luxe.input.bind_key('space', Key.space);
 
     } //connect_input
+
+    function draw_collider_polygon(poly:Polygon) {
+
+        var geom = Luxe.draw.poly({
+            solid:false,
+            close:true,
+            depth:100,
+            points:poly.vertices,
+            immediate:true
+        });
+
+        geom.transform.pos.copy_from(poly.position);
+
+    } //draw_collider_polygon
 
 } //Main
