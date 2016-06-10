@@ -6,6 +6,8 @@ import luxe.States;
 class Main extends luxe.Game {
 
     var machine : States;
+    //todo: add a toggle switch for this collider draw
+    public static var draw_colliders : Bool = false;
 
     override function config(config:luxe.GameConfig) {
 
@@ -27,6 +29,8 @@ class Main extends luxe.Game {
     } //config
 
     override function ready() {
+
+        // Luxe.camera.zoom = 0.8;
 
         connect_input();
         machine = new States({ name:'statemachine' });
