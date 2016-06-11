@@ -1,6 +1,7 @@
 import states.*;
 import luxe.GameConfig;
 import luxe.Input;
+import luxe.Color;
 import luxe.States;
 import luxe.collision.shapes.Shape;
 import luxe.collision.shapes.Polygon;
@@ -10,6 +11,7 @@ class Main extends luxe.Game {
     var machine : States;
     public static var draw_colliders : Bool = false;
     public static var wall_colliders : Array<Shape> = [];
+    public static var entity_colliders : Array<Shape> = [];
 
     override function config(config:luxe.GameConfig) {
 
@@ -59,6 +61,7 @@ class Main extends luxe.Game {
 
         if(draw_colliders) {
             for(shape in wall_colliders) draw_collider_polygon(cast shape);
+            for(shape in entity_colliders) draw_collider_polygon(cast shape);
         }
 
     } //update
@@ -84,7 +87,8 @@ class Main extends luxe.Game {
             close:true,
             depth:100,
             points:poly.vertices,
-            immediate:true
+            immediate:true,
+            color : new Color().rgb(0xb61415)
         });
 
         geom.transform.pos.copy_from(poly.position);

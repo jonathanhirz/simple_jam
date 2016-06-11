@@ -4,7 +4,6 @@ import luxe.Sprite;
 import luxe.Vector;
 import luxe.collision.shapes.Polygon;
 import entity.Cat;
-import component.Collider;
 
 class GameState extends State {
 
@@ -39,7 +38,6 @@ class GameState extends State {
 
         // a cat
         cat = new Cat();
-        cat.add(new Collider());
 
     } //onenter
 
@@ -50,7 +48,8 @@ class GameState extends State {
 
     override function update(dt:Float) {
 
-    } //update
+        cat.pos.x += 10 * dt;
 
+    } //update
 
 } //GameState
